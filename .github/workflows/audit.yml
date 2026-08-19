@@ -1,0 +1,56 @@
+name: Vercel Guardian Audit
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 */6 * * *"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: vercel-guardian
+  cancel-in-progress: false
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    # Only runs once VERCEL_TOKEN + VERCEL_SCOPE repo secrets/vars are set -
+    # forking this template gives you CI + tests for free, this job just
+    # sits idle (not failing) until you configure your own Vercel account.
+    if: ${{ vars.VERCEL_SCOPE != '' }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+
+      - name: Install locked dependencies
+        run: npm ci
+
+      - name: Validate guardian script
+        run: node --check scripts/vercel-guardian.mjs
+
+      - name: Run Vercel Guardian
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_SCOPE: ${{ vars.VERCEL_SCOPE }}
+          VERCEL_GUARDIAN_CLI_VERSION: "54.6.1"
+        run: npm run guardian:strict
+
+      - name: Upload reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: vercel-guardian-reports
+          path: reports/
+          if-no-files-found: error
+          retention-days: 7

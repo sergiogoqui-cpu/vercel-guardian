@@ -1,0 +1,32 @@
+{
+  "name": "vercel-guardian",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Automated Vercel account and project guardian audit: production health, config drift, and observability, without exposing secret values.",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sergiogoqui-cpu/vercel-guardian.git"
+  },
+  "scripts": {
+    "guardian": "node scripts/vercel-guardian.mjs",
+    "guardian:strict": "node scripts/vercel-guardian.mjs --fail-on-critical",
+    "test": "node scripts/test-redaction.mjs"
+  },
+  "engines": {
+    "node": ">=20.18.0"
+  },
+  "devDependencies": {
+    "vercel": "54.6.1"
+  },
+  "overrides": {
+    "@tootallnate/once": "2.0.1",
+    "ajv": "8.20.0",
+    "minimatch": "10.2.5",
+    "path-to-regexp": "8.4.2",
+    "smol-toml": "1.6.1",
+    "srvx": "0.11.16",
+    "tar": "7.5.15",
+    "undici": "6.24.0"
+  }
+}

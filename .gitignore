@@ -1,0 +1,11 @@
+.env
+.env.*
+!.env.example
+node_modules/
+.npm-cache/
+.vercel-cli/
+reports/*.json
+reports/*.md
+!reports/.gitkeep
+.DS_Store
+Thumbs.db
