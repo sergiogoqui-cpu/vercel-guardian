@@ -44,11 +44,10 @@ jobs:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
           VERCEL_SCOPE: ${{ vars.VERCEL_SCOPE }}
           VERCEL_GUARDIAN_CLI_VERSION: "54.6.1"
-        # Non-strict: reports findings without failing the job. panel-dtf has
-        # a known/accepted critical (BLOB_READ_WRITE_TOKEN not marked
-        # sensitive) that we're not rotating, so --fail-on-critical would
-        # keep this red forever. Re-enable `guardian:strict` once that's
-        # addressed or excluded per-project.
+        # Non-strict: reports findings without failing the job. One project
+        # has a known/accepted critical finding we're not remediating right
+        # now, so --fail-on-critical would keep this red forever. Re-enable
+        # `guardian:strict` once that's addressed or excluded per-project.
         run: npm run guardian
 
       - name: Upload reports
