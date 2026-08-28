@@ -20,12 +20,12 @@ jobs:
   audit:
     runs-on: ubuntu-latest
     timeout-minutes: 10
-    # Only runs once VERCEL_TOKEN + VERCEL_SCOPE repo secrets/vars are set -
-    # forking this template gives you CI + tests for free, this job just
-    # sits idle (not failing) until you configure your own Vercel account.
-    # Checks both explicitly: either one missing/rotated away and this
-    # would otherwise fail every 6h instead of skipping cleanly.
-    if: ${{ vars.VERCEL_SCOPE != '' && secrets.VERCEL_TOKEN != '' }}
+    # Only runs once VERCEL_SCOPE is set - forking this template gives you
+    # CI + tests for free, this job just sits idle (not failing) until you
+    # configure your own Vercel account. VERCEL_TOKEN is checked separately
+    # inside the run step below (the `secrets` context isn't available in a
+    # job-level `if:` - GitHub rejects it at parse time).
+    if: ${{ vars.VERCEL_SCOPE != '' }}
     steps:
       - uses: actions/checkout@v4
         with:
@@ -50,7 +50,12 @@ jobs:
         # has a known/accepted critical finding we're not remediating right
         # now, so --fail-on-critical would keep this red forever. Re-enable
         # `guardian:strict` once that's addressed or excluded per-project.
-        run: npm run guardian
+        run: |
+          if [ -z "$VERCEL_TOKEN" ]; then
+            echo "No VERCEL_TOKEN secret configured yet - skipping the audit instead of failing."
+            exit 0
+          fi
+          npm run guardian
 
       - name: Upload reports
         if: always()
