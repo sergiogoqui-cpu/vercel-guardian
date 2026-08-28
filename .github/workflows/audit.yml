@@ -23,7 +23,9 @@ jobs:
     # Only runs once VERCEL_TOKEN + VERCEL_SCOPE repo secrets/vars are set -
     # forking this template gives you CI + tests for free, this job just
     # sits idle (not failing) until you configure your own Vercel account.
-    if: ${{ vars.VERCEL_SCOPE != '' }}
+    # Checks both explicitly: either one missing/rotated away and this
+    # would otherwise fail every 6h instead of skipping cleanly.
+    if: ${{ vars.VERCEL_SCOPE != '' && secrets.VERCEL_TOKEN != '' }}
     steps:
       - uses: actions/checkout@v4
         with:
