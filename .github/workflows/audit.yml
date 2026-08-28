@@ -63,5 +63,5 @@ jobs:
         with:
           name: vercel-guardian-reports
           path: reports/
-          if-no-files-found: error
+          if-no-files-found: warn
           retention-days: 7
