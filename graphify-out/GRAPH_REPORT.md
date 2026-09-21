@@ -1,127 +1,129 @@
-# Graph Report - vercel-guardian  (2026-09-07)
+# Graph Report - vercel-guardian  (2026-09-21)
 
 ## Corpus Check
-- 7 files · ~4,935 words
-- Verdict: corpus is large enough that graph structure adds value.
+- Corpus is ~4,935 words - fits in a single context window. You may not need a graph.
 
 ## Summary
-- 147 nodes · 226 edges · 13 communities
-- Extraction: 96% EXTRACTED · 4% INFERRED · 0% AMBIGUOUS · INFERRED: 8 edges (avg confidence: 0.82)
-- Token cost: 0 input · 0 output
+- 117 nodes · 190 edges · 13 communities (12 shown, 1 thin omitted)
+- Extraction: 96% EXTRACTED · 3% INFERRED · 1% AMBIGUOUS · INFERRED: 6 edges (avg confidence: 0.83)
+- Token cost: 0 input · 61,388 output
 
 ## Community Hubs (Navigation)
-- README: Checks & Project Docs
-- Package Manifest & Overrides
-- Vercel Guardian Audit Workflow
-- Guardian Core Assessment Helpers
-- Guardian Run Config & npm Scripts
-- Secret Redaction Functions
-- Guardian Report & Alias Helpers
-- Vercel REST API Client Helpers
-- Vercel CLI Account & Alias Helpers
-- Activity Event Redaction Helpers
-- CLI Bootstrap Error Handling
-- Vercel Command Execution Helpers
+- Vercel API & Redaction Helpers
+- Package Manifest & Scripts
+- CI/CD Workflows & Docs
+- Guardian CLI Core & HTTP Checks
+- Transitive npm Dependencies
+- Redaction Test Harness
+- Deployment Reporting Helpers
+- Vercel CLI Bootstrap & Errors
+- Activity Event Redaction
+- Vercel Command Construction
+- Environment Variable Audit
+- Audit Report Rendering
 
 ## God Nodes (most connected - your core abstractions)
 1. `main()` - 23 edges
-2. `overrides` - 9 edges
-3. `What It Checks` - 9 edges
-4. `audit Job` - 9 edges
-5. `runVercel()` - 8 edges
-6. `redactProject()` - 8 edges
-7. `vercelJson()` - 6 edges
-8. `isoFromMs()` - 6 edges
-9. `vercel-guardian README` - 6 edges
-10. `test Job` - 6 edges
+2. `vercel-guardian README` - 11 edges
+3. `overrides` - 9 edges
+4. `runVercel()` - 8 edges
+5. `redactProject()` - 8 edges
+6. `vercelJson()` - 6 edges
+7. `isoFromMs()` - 6 edges
+8. `vercelPagedJson()` - 5 edges
+9. `redactActivityEvent()` - 5 edges
+10. `audit job` - 5 edges
 
 ## Surprising Connections (you probably didn't know these)
-- `Run Vercel Guardian Step` --references--> `guardian`  [EXTRACTED]
-  .github/workflows/audit.yml → package.json
-- `npm run guardian` --references--> `guardian`  [EXTRACTED]
-  README.md → package.json
-- `npm run guardian:strict` --references--> `guardian:strict`  [EXTRACTED]
-  README.md → package.json
-- `npm test Step` --references--> `test`  [EXTRACTED]
-  .github/workflows/ci.yml → package.json
-- `redactUrlSecrets Mechanism` --references--> `redactUrlSecrets()`  [EXTRACTED]
-  README.md → scripts/vercel-guardian.mjs
+- `Non-strict audit mode` --references--> `guardian:strict command`  [AMBIGUOUS]
+  .github/workflows/audit.yml → README.md
+- `vercel-guardian README` --references--> `Vercel Guardian Audit Workflow`  [EXTRACTED]
+  README.md → .github/workflows/audit.yml
+- `vercel-guardian README` --references--> `CI Workflow`  [EXTRACTED]
+  README.md → .github/workflows/ci.yml
+- `audit job` --semantically_similar_to--> `test job`  [INFERRED] [semantically similar]
+  .github/workflows/audit.yml → .github/workflows/ci.yml
 
 ## Import Cycles
 - None detected.
 
 ## Hyperedges (group relationships)
-- **Secret Redaction Test & Audit Assurance** — readme_secret_redaction_rationale, readme_redacturlsecrets_mechanism, readme_redaction_test_suite, _github_workflows_ci_run_tests_step [EXTRACTED 0.90]
-- **CI & Scheduled Audit Pipeline** — _github_workflows_ci_workflow, _github_workflows_audit_workflow, package_scripts_guardian, package_scripts_test [INFERRED 0.85]
+- **Script validation shared across CI workflows** — github_workflows_audit_audit_job, github_workflows_ci_test_job, scripts_vercel_guardian [INFERRED 0.85]
+- **Vercel Guardian audit checks catalog** — readme_production_deployment_check, readme_http_health_check, readme_framework_detection_check, readme_web_analytics_check, readme_node_runtime_drift_check, readme_deploy_hooks_check, readme_plan_level_limits_check [INFERRED 0.85]
 
-## Communities (13 total, 0 thin omitted)
+## Communities (13 total, 1 thin omitted)
 
-### Community 0 - "README: Checks & Project Docs"
-Cohesion: 0.08
-Nodes (23): vercel-guardian README, Deploy Hooks Check, Findings Ranked critical/warning/info, Framework Detection Check, HTTP Health Check, LICENSE File, License Section, Node Runtime Drift Check (+15 more)
-
-### Community 1 - "Package Manifest & Overrides"
-Cohesion: 0.09
-Nodes (22): description, devDependencies, vercel, engines, node, license, name, overrides (+14 more)
-
-### Community 2 - "Vercel Guardian Audit Workflow"
-Cohesion: 0.10
-Nodes (21): audit Job, Checkout Step (Audit Workflow), vercel-guardian Concurrency Group, npm ci Step (Audit Workflow), 6-Hour Cron Schedule, Setup Node 24 Step (Audit Workflow), Upload reports/ Artifact Step, node --check Validate Script Step (Audit Workflow) (+13 more)
-
-### Community 3 - "Guardian Core Assessment Helpers"
+### Community 0 - "Vercel API & Redaction Helpers"
 Cohesion: 0.14
-Nodes (16): args, assessProject(), checkHttp(), commandTimeoutMs, compactEnv(), __dirname, fetchWithTimeout(), httpTimeoutMs (+8 more)
+Nodes (22): accountAliases(), accountWebhooks(), aliasUrls(), deploymentErrorSummary(), main(), nextPageCursor(), parseAliasList(), primaryDeployment() (+14 more)
 
-### Community 4 - "Guardian Run Config & npm Scripts"
+### Community 1 - "Package Manifest & Scripts"
+Cohesion: 0.11
+Nodes (17): description, devDependencies, vercel, engines, node, license, name, repository (+9 more)
+
+### Community 2 - "CI/CD Workflows & Docs"
 Cohesion: 0.13
-Nodes (16): Why the Audit Step Runs Non-Strict, Run Vercel Guardian Step, VERCEL_GUARDIAN_CLI_VERSION Pin, VERCEL_TOKEN Secret, npm test Step, scripts, guardian, guardian:strict (+8 more)
+Nodes (17): Vercel Guardian Audit Workflow, audit job, VERCEL_SCOPE conditional gate, Non-strict audit mode, CI Workflow, test job, vercel-guardian README, Deploy hooks check (+9 more)
 
-### Community 5 - "Secret Redaction Functions"
-Cohesion: 0.18
-Nodes (13): redactUrlSecrets Mechanism, accountWebhooks(), deploymentUrl(), isoFromMs(), projectDeployHooks(), redactDeployHook(), redactProject(), redactRecentDeployment() (+5 more)
+### Community 3 - "Guardian CLI Core & HTTP Checks"
+Cohesion: 0.15
+Nodes (12): ref_node_child_process, ref_node_path, ref_node_url, args, checkHttp(), commandTimeoutMs, __dirname, fetchWithTimeout() (+4 more)
 
-### Community 6 - "Guardian Report & Alias Helpers"
-Cohesion: 0.43
-Nodes (7): aliasUrls(), blockedReport(), main(), primaryDeployment(), redactTeam(), reportEnvironment(), staleAliases()
+### Community 4 - "Transitive npm Dependencies"
+Cohesion: 0.22
+Nodes (9): overrides, ajv, minimatch, path-to-regexp, smol-toml, srvx, tar, @tootallnate/once (+1 more)
 
-### Community 7 - "Vercel REST API Client Helpers"
-Cohesion: 0.29
-Nodes (7): deploymentErrorSummary(), nextPageCursor(), recordsFromResponse(), resolveRestIdentity(), vercelJson(), vercelPagedJson(), vercelRestJson()
+### Community 5 - "Redaction Test Harness"
+Cohesion: 0.22
+Nodes (8): ref_node_fs, ref_node_vm, cases, failures, functionSource, match, sandbox, source
 
-### Community 8 - "Vercel CLI Account & Alias Helpers"
-Cohesion: 0.40
-Nodes (5): accountAliases(), parseAliasList(), recentActivity(), runVercel(), vercelCommandCandidates()
+### Community 6 - "Deployment Reporting Helpers"
+Cohesion: 0.33
+Nodes (7): deploymentUrl(), isoFromMs(), redactDeployHook(), redactProject(), redactRecentDeployment(), shortSha(), statusFromFindings()
 
-### Community 9 - "Activity Event Redaction Helpers"
+### Community 7 - "Vercel CLI Bootstrap & Errors"
+Cohesion: 0.33
+Nodes (6): blockedReport(), bootstrapDetail(), isCliBootstrapError(), reportEnvironment(), runVercelCandidate(), sanitizeError()
+
+### Community 8 - "Activity Event Redaction"
 Cohesion: 0.67
 Nodes (4): activityActor(), activitySeverity(), isOwnerActivity(), redactActivityEvent()
 
-### Community 10 - "CLI Bootstrap Error Handling"
-Cohesion: 0.50
-Nodes (4): bootstrapDetail(), isCliBootstrapError(), runVercelCandidate(), sanitizeError()
-
-### Community 11 - "Vercel Command Execution Helpers"
+### Community 9 - "Vercel Command Construction"
 Cohesion: 0.67
 Nodes (4): cmdArg(), cmdCommand(), quoteCmdArg(), runVercelWithCommand()
 
+### Community 10 - "Environment Variable Audit"
+Cohesion: 0.67
+Nodes (3): assessProject(), compactEnv(), sensitiveEnvFindings()
+
+### Community 11 - "Audit Report Rendering"
+Cohesion: 0.67
+Nodes (3): renderMarkdown(), severityRank(), writeReport()
+
+## Ambiguous Edges - Review These
+- `Non-strict audit mode` → `guardian:strict command`  [AMBIGUOUS]
+  .github/workflows/audit.yml · relation: references
+
 ## Knowledge Gaps
-- **56 isolated node(s):** `name`, `version`, `type`, `description`, `license` (+51 more)
-  These have ≤1 connection - possible missing edges or undocumented components. (Counts symbols only; 62 node(s) total have ≤1 connection when file, concept and rationale nodes are included.)
+- **42 isolated node(s):** `name`, `version`, `type`, `description`, `license` (+37 more)
+  These have ≤1 connection - possible missing edges or undocumented components. (Counts symbols only; 49 node(s) total have ≤1 connection when file, concept and rationale nodes are included.)
+- **1 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `scripts` connect `Guardian Run Config & npm Scripts` to `Package Manifest & Overrides`?**
-  _High betweenness centrality (0.285) - this node is a cross-community bridge._
-- **Why does `audit Job` connect `Vercel Guardian Audit Workflow` to `Guardian Run Config & npm Scripts`?**
-  _High betweenness centrality (0.279) - this node is a cross-community bridge._
-- **Why does `test Job` connect `Vercel Guardian Audit Workflow` to `Guardian Run Config & npm Scripts`?**
-  _High betweenness centrality (0.242) - this node is a cross-community bridge._
+- **What is the exact relationship between `Non-strict audit mode` and `guardian:strict command`?**
+  _Edge tagged AMBIGUOUS (relation: references) - confidence is low._
+- **Why does `audit job` connect `CI/CD Workflows & Docs` to `Guardian CLI Core & HTTP Checks`?**
+  _High betweenness centrality (0.100) - this node is a cross-community bridge._
+- **Why does `test job` connect `CI/CD Workflows & Docs` to `Guardian CLI Core & HTTP Checks`?**
+  _High betweenness centrality (0.065) - this node is a cross-community bridge._
 - **Are the 2 inferred relationships involving `main()` (e.g. with `redactRecentDeployment()` and `redactTeam()`) actually correct?**
   _`main()` has 2 INFERRED edges - model-reasoned connections that need verification._
 - **What connects `name`, `version`, `type` to the rest of the system?**
-  _56 weakly-connected nodes found - possible documentation gaps or missing edges._
-- **Should `README: Checks & Project Docs` be split into smaller, more focused modules?**
-  _Cohesion score 0.08333333333333333 - nodes in this community are weakly interconnected._
-- **Should `Package Manifest & Overrides` be split into smaller, more focused modules?**
-  _Cohesion score 0.08695652173913043 - nodes in this community are weakly interconnected._
+  _42 weakly-connected nodes found - possible documentation gaps or missing edges._
+- **Should `Vercel API & Redaction Helpers` be split into smaller, more focused modules?**
+  _Cohesion score 0.13852813852813853 - nodes in this community are weakly interconnected._
+- **Should `Package Manifest & Scripts` be split into smaller, more focused modules?**
+  _Cohesion score 0.1111111111111111 - nodes in this community are weakly interconnected._
